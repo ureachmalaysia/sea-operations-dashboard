@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEA Operations Dashboard</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e6eaf0;--accent:#2563eb;--green:#16a34a;--red:#dc2626;--amber:#d97706;--nav:#111827}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:var(--bg);color:var(--text)}
+.app{display:flex;min-height:100vh}.side{width:230px;background:var(--nav);color:#fff;padding:24px 16px;position:fixed;inset:0 auto 0 0}.brand{font-size:18px;font-weight:800;padding:8px 10px 28px}.brand span{display:block;color:#93c5fd;font-size:11px;font-weight:500;margin-top:5px}.nav button{width:100%;border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px 12px;border-radius:9px;margin:3px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#1f2937;color:#fff}.main{margin-left:230px;width:calc(100% - 230px);padding:28px 34px 50px}.top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px}.eyebrow{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.08em}.title{font-size:30px;font-weight:800;margin:5px 0}.subtitle{color:var(--muted);font-size:14px}.filter{display:flex;gap:8px}.filter select{background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:8px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px}.kpi .label{font-size:12px;color:var(--muted)}.kpi .value{font-size:24px;font-weight:800;margin:7px 0}.kpi .delta{font-size:12px}.up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--muted)}
+.two{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}.card h2{font-size:16px;margin:0 0 4px}.card p{margin:0 0 16px;color:var(--muted);font-size:12px}.bars{display:flex;flex-direction:column;gap:13px}.barrow{display:grid;grid-template-columns:70px 1fr 80px;gap:10px;align-items:center;font-size:12px}.track{height:9px;background:#edf0f5;border-radius:20px;overflow:hidden}.bar{height:100%;border-radius:20px;background:var(--accent)}.negative .bar{background:#ef4444}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:13px}.table th{color:var(--muted);font-weight:600;text-align:left;border-bottom:1px solid var(--line);padding:10px 8px}.table td{padding:12px 8px;border-bottom:1px solid #f0f2f5;white-space:nowrap}.pill{padding:4px 8px;border-radius:99px;font-size:11px;font-weight:700}.green{background:#dcfce7;color:#166534}.yellow{background:#fef3c7;color:#92400e}.red{background:#fee2e2;color:#991b1b}.blue{background:#dbeafe;color:#1e40af}
+.section{display:none}.section.active{display:block}.legend{display:flex;gap:15px;font-size:12px;color:var(--muted);margin-top:12px}.dot{width:9px;height:9px;display:inline-block;border-radius:50%;margin-right:5px}.base{background:#2563eb}.project{background:#94a3b8}.footer{color:#98a2b3;font-size:11px;margin-top:25px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}}@media(max-width:700px){.side{width:68px}.brand{font-size:0}.brand span{display:none}.nav button{font-size:0;text-align:center}.main{margin-left:68px;width:calc(100% - 68px);padding:20px}.grid{grid-template-columns:repeat(2,1fr)}.top{display:block}.filter{margin-top:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">SEA OPS<span>東南亞營運分析</span></div>
+  <nav class="nav">
+    <button class="active" onclick="show('overview',this)">⌂　營運概況</button>
+    <button onclick="show('business',this)">▦　Business</button>
+    <button onclick="show('pipeline',this)">◇　Pipeline</button>
+    <button onclick="show('actions',this)">✓　Actions</button>
+  </nav>
+</aside>
+
+<main class="main">
+<section id="overview" class="section active">
+<div class="top"><div><div class="eyebrow">SEA OPERATIONS</div><div class="title">營運概況</div><div class="subtitle">2026 Jan–Aug ｜與 2025 Jan–Aug 同期比較</div></div>
+<div class="filter"><select id="period"><option>2026 YTD</option><option>2025 Full Year</option></select></div></div>
+
+<div class="grid">
+<div class="kpi"><div class="label">SEA Revenue</div><div class="value">$309K</div><div class="delta up">▲ 43.2% YoY</div></div>
+<div class="kpi"><div class="label">Base Revenue</div><div class="value">待輸入</div><div class="delta neutral">Base / Project 尚未拆分</div></div>
+<div class="kpi"><div class="label">Project Revenue</div><div class="value">待輸入</div><div class="delta neutral">Base / Project 尚未拆分</div></div>
+<div class="kpi"><div class="label">Top Revenue Engine</div><div class="value">CTS</div><div class="delta neutral">45.3% share</div></div>
+<div class="kpi"><div class="label">Growth Market</div><div class="value">VN</div><div class="delta up">+429.7% YoY</div></div>
+<div class="kpi"><div class="label">Main Risk</div><div class="value">TH</div><div class="delta down">-73.0% YoY</div></div>
+</div>
+
+<div class="two">
+<div class="card"><h2>SEA 成長來源</h2><p>2026 YTD 相較 2025 同期的營收增減（USD）</p><div class="bars" id="growthBars"></div></div>
+<div class="card"><h2>Revenue Structure</h2><p>2026 Jan–Aug 市場營收占比</p><div class="bars" id="shareBars"></div></div>
+</div>
+
+<div class="card" style="margin-top:16px"><h2>Management Snapshot</h2><p>30 秒掌握目前業務狀況</p>
+<table class="table"><thead><tr><th>項目</th><th>目前狀態</th><th>管理解讀</th></tr></thead><tbody>
+<tr><td>CTS</td><td><span class="pill green">Core Engine</span></td><td>檳城半導體大型客戶帶動，需管理客戶／專案集中度</td></tr>
+<tr><td>URMY</td><td><span class="pill yellow">Build</span></td><td>直營業務，不應只用營收占比評價；應看基本盤、客戶與 Pipeline</td></tr>
+<tr><td>VN</td><td><span class="pill blue">Growth</span></td><td>高速成長，但需確認是否由少數大型專案造成</td></tr>
+<tr><td>TH</td><td><span class="pill red">Recovery</span></td><td>YoY 大幅下降，需確認客戶／專案／採購週期原因</td></tr>
+<tr><td>Other</td><td><span class="pill yellow">Validate</span></td><td>快速增加，先確認是否為一次性區域訂單</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="business" class="section">
+<div class="top"><div><div class="eyebrow">BUSINESS</div><div class="title">市場與業務分析</div><div class="subtitle">以 Base / Project 為核心的業務健康度</div></div></div>
+<div class="card"><h2>Market Performance</h2><p>第一版先以已知 Revenue 建立骨架；Base / Project 欄位可在資料匯入後自動計算。</p>
+<div class="tablewrap"><table class="table"><thead><tr><th>Market / Business</th><th>2025 Jan–Aug</th><th>2026 Jan–Aug</th><th>YoY</th><th>2026 Share</th><th>分類</th></tr></thead><tbody id="marketTable"></tbody></table></div></div>
+<div class="two"><div class="card"><h2>建議的業務分類</h2><p>維持簡單，避免 2 人團隊增加資料維護負擔。</p>
+<table class="table"><tr><td><b>Base</b></td><td>既有客戶、Repeat Order、常態產品、可重複需求</td></tr><tr><td><b>Project</b></td><td>大型設備、擴廠、新廠、特殊產品、一次性大型 PO</td></tr></table></div>
+<div class="card"><h2>Business Health</h2><p>未來核心指標</p><div class="bars"><div class="barrow"><span>Base Growth</span><div class="track"><div class="bar" style="width:72%"></div></div><b>待資料</b></div><div class="barrow"><span>Project</span><div class="track"><div class="bar" style="width:55%"></div></div><b>待資料</b></div><div class="barrow"><span>Repeat</span><div class="track"><div class="bar" style="width:68%"></div></div><b>待資料</b></div></div></div></div>
+</section>
+
+<section id="pipeline" class="section">
+<div class="top"><div><div class="eyebrow">PIPELINE</div><div class="title">Pipeline</div><div class="subtitle">管理未來 30–90 天的收入來源</div></div></div>
+<div class="card"><h2>Opportunity Tracker</h2><p>以下為介面範例，正式版可由團隊直接新增／編輯。</p>
+<table class="table"><thead><tr><th>Market</th><th>Opportunity</th><th>Type</th><th>Value</th><th>Stage</th><th>Expected</th></tr></thead>
+<tbody><tr><td>Malaysia</td><td>CTS / Semiconductor Major Account</td><td><span class="pill blue">Project</span></td><td>$—</td><td>Proposal</td><td>Q4</td></tr>
+<tr><td>Vietnam</td><td>Growth Customer</td><td><span class="pill green">Base</span></td><td>$—</td><td>Negotiation</td><td>Q4</td></tr>
+<tr><td>Singapore</td><td>Strategic Account</td><td><span class="pill blue">Project</span></td><td>$—</td><td>RFQ</td><td>Q4</td></tr></tbody></table></div>
+</section>
+
+<section id="actions" class="section">
+<div class="top"><div><div class="eyebrow">ACTION TRACKER</div><div class="title">團隊工作管理</div><div class="subtitle">把「做了什麼」連回「產生什麼結果」</div></div></div>
+<div class="card"><h2>Action Tracker</h2><p>建議狀態：Not Started → In Progress → Waiting → Done</p>
+<table class="table"><thead><tr><th>Action</th><th>Market</th><th>Owner</th><th>Deadline</th><th>Status</th><th>Result</th></tr></thead>
+<tbody><tr><td>VN customer development</td><td>VN</td><td>Ops A</td><td>2026/09/15</td><td><span class="pill yellow">In Progress</span></td><td>—</td></tr>
+<tr><td>CTS project follow-up</td><td>MY</td><td>Ops B</td><td>2026/09/12</td><td><span class="pill green">Done</span></td><td>Proposal sent</td></tr>
+<tr><td>TH recovery plan</td><td>TH</td><td>Ops A</td><td>2026/09/20</td><td><span class="pill red">Waiting</span></td><td>—</td></tr></tbody></table></div>
+</section>
+<div class="footer">SEA Operations Dashboard · MVP prototype · Revenue data based on the figures provided in this conversation.</div>
+</main></div>
+
+<script>
+const markets=[
+["CTS",53100,139965,"Channel / Penang Semiconductor"],
+["URMY",65355,48931,"Direct / Malaysia"],
+["SG",36781,24734,"Direct Market"],
+["ID",27438,28250,"Direct Market"],
+["TH",23848,6440,"Direct Market"],
+["VN",6118,32410,"Direct Market"],
+["PH",1890,1690,"Direct Market"],
+["Other",1259,26635,"Emerging / Other"]
+];
+const total26=309054;
+function money(x){return "$"+Math.round(x).toLocaleString()+"K".replace(",","")}
+function show(id,btn){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active")}
+function render(){
+ const sorted=[...markets].map(x=>[...x,x[2]-x[1]]).sort((a,b)=>b[4]-a[4]);
+ const max=Math.max(...sorted.map(x=>Math.abs(x[4])));
+ document.getElementById("growthBars").innerHTML=sorted.map(x=>`<div class="barrow ${x[4]<0?'negative':''}"><span>${x[0]}</span><div class="track"><div class="bar" style="width:${Math.abs(x[4])/max*100}%"></div></div><b>${x[4]>=0?'+':''}$${Math.round(x[4]/1000)}K</b></div>`).join("");
+ const share=[...markets].sort((a,b)=>b[2]-a[2]);
+ document.getElementById("shareBars").innerHTML=share.map(x=>`<div class="barrow"><span>${x[0]}</span><div class="track"><div class="bar" style="width:${x[2]/share[0][2]*100}%"></div></div><b>${(x[2]/total26*100).toFixed(1)}%</b></div>`).join("");
+ document.getElementById("marketTable").innerHTML=markets.map(x=>{
+   const yoy=(x[2]/x[1]-1)*100, share=x[2]/total26*100;
+   let cls=yoy>50?'green':yoy< -30?'red':'yellow';
+   return `<tr><td><b>${x[0]}</b></td><td>$${x[1].toLocaleString()}</td><td>$${x[2].toLocaleString()}</td><td class="${yoy>=0?'up':'down'}">${yoy>=0?'+':''}${yoy.toFixed(1)}%</td><td>${share.toFixed(1)}%</td><td><span class="pill ${cls}">${x[3]}</span></td></tr>`
+ }).join("");
+}
+render();
+</script>
+</body></html>
